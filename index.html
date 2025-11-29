@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+
+.fade-home {
+  opacity: 0;
+  animation: fadeHome 0.7s ease-out forwards;
+}
+
+@keyframes fadeHome {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+  /* Sections hidden by default */
+  .project-section {
+    display: none;
+  }
+
+  /* Show overlay only when URL matches its ID */
+  .project-section:target {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: #111211;
+    z-index: 80;
+    overflow-y: auto;
+    padding: 3rem 2rem;
+  }
+
+  /* When overlay is open → hide homepage */
+  #environment-section:target ~ #homepage,
+#space-section:target ~ #homepage,
+#motion-section:target ~ #homepage {
+  display: none;
+}
+
+
+  /* Back link */
+  .project-back {
+    color: #666;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .project-back:hover { color: #000; }
+
+  /* Carrd-style stagger fade system */
+  .fade-seq {
+    opacity: 0;
+    animation: fadeSeq 0.65s ease-out forwards;
+    animation-delay: var(--d, 0s);
+  }
+
+  @keyframes fadeSeq {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .nav-small {
+    font-size: 12px;   /* ← change this anytime */
+    letter-spacing: 0.15em; /* optional: feel free to adjust */
+    font-family: 'Inter', sans-serif; /* ← change to any font */
+  }
+
+  * {
+    font-family: 'Inter', sans-serif;
+  }
+
+
+  html {
+  scroll-behavior: smooth;
+}
+</style>
+
+
+</head>
+
+
+<body style="background-color: #111211;" class="text-black font-sans"> 
+
+
+<a id="top"></a>
+  
+<!-- ENVIRONMENT OVERLAY -->
+<section id="environment-section" class="project-section ">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- MAIN TITLE -->
+    <h1 class="text-7xl lg:text-8xl font-light mb-6 fade-seq" style="--d:.05s ;">
+      <span class="font-bold text-white">Environment</span>
+    </h1>
+
+    <!-- Meta data row with back button -->
+    <div class="mt-24 mb-10 fade-seq" style="--d:.12s;">
+      <div class="grid grid-cols-4 gap-8 items-start text-sm">
+
+        <!-- Back button -->
+<div>
+  <a href="#top" class="inline-flex items-center mb-2 text-white hover:text-[#7d7d7d] transition">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back
+  </a>
+</div>
+
+
+        <!-- LABELS -->
+        <p class="text-xs uppercase tracking-widest text-gray-500">Category</p>
+        <p class="text-xs uppercase tracking-widest text-gray-500">Timeline</p>
+        <p class="text-xs uppercase tracking-widest text-gray-500">Tools</p>
+
+        <!-- VALUES -->
+        <div></div>
+
+        <p class="text-gray-100 -mt-10">Environment</p>
+        <p class="text-gray-100 -mt-10">2024–2025</p>
+        <p class="text-gray-100 -mt-10">Blender - After Effects - GAEA</p>
+      </div>
+    </div>
+
+    <!-- Intro text -->
+    <p class="font-light max-w-3xl mb-8 fade-seq" style="--d:.20s; font-size:15px; margin-top:100px; color: #a6a6a6;">
+      Every environment is a story of structure, atmosphere, and intention—shaped to guide how we feel within space.
+    </p>
+
+    <div class="border-t border-[#3a3a3a] my-8 fade-seq" style="--d:.76s;"></div>
+
+
+    <!-- Image grid -->
+    <div 
+      class="grid grid-cols-2 gap-1 mb-12 fade-seq"
+      style="--d:.36s; --topH: 380px; --bottomH: 340px;"
+    >
+      <!-- Top wide -->
+      <div class="col-span-2 overflow-hidden" style="height: var(--topH);">
+        <img src="images/EnvironmentProject1.jpg" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Bottom left -->
+      <div class="overflow-hidden" style="height: var(--bottomH);">
+        <img src="images/EnvironemntProject2.jpg" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Bottom right -->
+      <div class="overflow-hidden" style="height: var(--bottomH);">
+        <img src="images/EnvironemntProject4.jpg" class="w-full h-full object-cover">
+      </div>
+    </div>
+
+    <!-- Comparison -->
+    <h3 class=" text-white text-3xl font-light mb-6 fade-seq" style="--d:.44s;">
+      Final <span class="font-bold text-white">VS</span> Viewport
+    </h3>
+    <div class="border-t border-[#3a3a3a] mb-8 fade-seq" style="--d:.52s;"></div>
+
+    <div class="grid grid-cols-2 gap-4 mb-12 fade-seq" style="--d:.60s;">
+      <img src="images/RedTreeRender.jpg" class="w-full object-cover">
+      <img src="images/RedTreeViewport.png" class="w-full object-cover">
+    </div>
+
+    <!-- Additional 4-image grid -->
+    <div class="grid grid-cols-2 gap-4 mb-12 fade-seq" style="--d:.68s;">
+      <img src="images/LunarEnvironment.jpg" class="w-full h-auto object-cover">
+      <img src="images/LunarEnvViewport.jpg" class="w-full h-auto object-cover">
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-[#3a3a3a] my-8 fade-seq" style="--d:.76s;"></div>
+
+    <!-- Image grid -->
+    <div 
+      class="grid grid-cols-2 gap-1 mb-12 fade-seq"
+      style="--d:.36s; --topH: 380px; --bottomH: 340px;"
+    >
+      
+
+      <!-- Bottom left -->
+      <div class="overflow-hidden" style="height: var(--bottomH);">
+        <img src="images/EnvironmentProject4.jpg" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Bottom right -->
+      <div class="overflow-hidden" style="height: var(--bottomH);">
+        <img src="images/EnvironmentProject5(2).jpg" class="w-full h-full object-cover">
+      </div>
+    </div>
+
+    <!-- Cinematic wideshot -->
+    <div class="relative w-full overflow-hidden mb-12 fade-seq" style="--d:.84s; padding-top: 50%;">
+      <img src="images/EnvProject3.jpg" class="absolute inset-0 w-full h-full object-cover">
+    </div>
+
+    <!-- Closing note -->
+    <p class="text-sm text-gray-500 mb-12 fade-seq" style="--d:.92s;">
+      Add case study text, process shots, or embedded media below.
+    </p>
+
+    <!-- Footer inside overlay -->
+    <div class="flex justify-between items-center pt-8border- border-t border-[#3a3a3a] fade-seq" style="--d:1.0s;">
+      <p class="text-sm text-gray-500 mt-3">© 2024 AstroEarthly</p>
+      <a href="#work" class="project-back text-sm mt-3">Close</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SPACE OVERLAY -->
+<section id="space-section" class="project-section">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- MAIN TITLE -->
+    <h1 class="text-7xl lg:text-8xl font-light mb-6 fade-seq" style="--d:.05s;">
+      <span class="font-bold text-white">Space</span>
+    </h1>
+
+    <!-- Meta data row with back button -->
+    <div class="mt-24 mb-10 fade-seq" style="--d:.12s;">
+      <div class="grid grid-cols-4 gap-8 items-start text-sm">
+
+        <!-- Back button -->
+<div>
+  <a href="#top" class="text-white  inline-flex items-center mb-2 hover:text-[#7d7d7d]">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back
+  </a>
+</div>
+
+
+        <!-- LABELS -->
+        <p class="text-xs uppercase tracking-widest text-gray-500">Category</p>
+        <p class="text-xs uppercase tracking-widest text-gray-500">Timeline</p>
+        <p class="text-xs uppercase tracking-widest text-gray-500">Tools</p>
+
+        <!-- VALUES -->
+        <div></div>
+
+        <p class="text-gray-100 -mt-10">Space concepts</p>
+        <p class="text-gray-100 -mt-10">2024–2025</p>
+        <p class="text-gray-100 -mt-10">Blender - After Effects</p>
+      </div>
+    </div>
+
+    <!-- Intro text -->
+<p class="font-light max-w-3xl mb-8 fade-seq" style="--d:.20s; font-size:15px; margin-top:100px; color: #a6a6a6;">
+  A collection of space explorations developed over time, focusing on composition, atmospheric depth, and visual storytelling.
+</p>
+
+
+
+
+    <div class="border-t border-[#3a3a3a] my-8 fade-seq" style="--d:.28s;"></div>
+
+    <!-- Image grid -->
+    <div 
+      class="grid grid-cols-2 gap-1 mb-12 fade-seq"
+      style="--d:.36s; --topH: 500px; --bottomH: 340px;"
+    >
+      <!-- Top wide -->
+      <div class="col-span-2 overflow-hidden" style="height: var(--topH);">
+        <img src="images/SPACEProject1.jpg" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Bottom left -->
+      <div class="overflow-hidden" style="height: var(--bottomH);">
+        <img src="images/SPACEProject2.jpg" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Bottom right -->
+      <div class="overflow-hidden" style="height: var(--bottomH);">
+        <img src="images/SPACEProject3.jpg" class="w-full h-full object-cover">
+      </div>
+    </div>
+
+    <!-- Comparison -->
+    <h3 class=" text-white font-light mb-6 fade-seq" style="--d:.44s;">
+      Final <span class="font-bold">VS</span> Viewport
+    </h3>
+    <div class="border-t border-[#3a3a3a] mb-8 fade-seq" style="--d:.52s;"></div>
+
+    <div class="grid grid-cols-2 gap-4 mb-12 fade-seq" style="--d:.60s;">
+      <img src="images/SPACEProject5.jpg" class="w-full object-cover">
+      <img src="images/SPACEProjectViewport5.jpg" class="w-full object-cover">
+    </div>
+
+     <!-- Divider -->
+    <div class="border-t border-[#3a3a3a] my-8 fade-seq" style="--d:.76s;"></div>
+
+    <!-- Image grid -->
+    <div 
+      class="grid grid-cols-2 gap-1 mb-12 fade-seq"
+      style="--d:.36s; --topH: 500px; --bottomH: 340px;"
+    >
+      <!-- Top wide -->
+      <div class="col-span-2 overflow-hidden" style="height: var(--topH);">
+        <img src="images/SPACEProject6.jpg" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Bottom left -->
+      <div class="overflow-hidden" style="height: var(--bottomH);">
+        <img src="images/SPACEProject7.jpg" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Bottom right -->
+      <div class="overflow-hidden" style="height: var(--bottomH);">
+        <img src="images/SPACEProject8.jpg" class="w-full h-full object-cover">
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-[#3a3a3a] my-8 fade-seq" style="--d:.76s;"></div>
+
+    <!-- Cinematic wideshot -->
+    <div class="relative w-full overflow-hidden mb-12 fade-seq" style="--d:.84s; padding-top: 50%;">
+      <img src="images/SPACEProject4.jpg" class="absolute inset-0 w-full h-full object-cover">
+    </div>
+
+    <!-- Closing note -->
+    <p class="text-sm text-gray-500 mb-12 fade-seq" style="--d:.92s;">
+      Add case study text, process shots, or embedded media below.
+    </p>
+
+    <!-- Footer inside overlay -->
+    <div class="flex justify-between items-center pt-8 border-t border-[#3a3a3a] fade-seq" style="--d:1.0s;">
+      <p class="text-sm text-gray-500">© 2024 AstroEarthly</p>
+      <a href="#work" class="project-back text-sm">Close</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- MOTION DESIGN OVERLAY -->
+<section id="motion-section" class="project-section">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- MAIN TITLE -->
+    <h1 class="text-7xl lg:text-8xl font-light mb-6 fade-seq" style="--d:.05s;">
+      <span class="font-bold text-white">Motion Design</span>
+    </h1>
+
+    <!-- Meta data row with back button -->
+    <div class="mt-24 mb-10 fade-seq" style="--d:.12s;">
+      <div class="grid grid-cols-4 gap-8 items-start text-sm">
+
+        <!-- Back button -->
+<div>
+  <a href="#top" class=" text-white inline-flex items-center mb-2 hover:text-[#7d7d7d]">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back
+  </a>
+</div>
+
+
+        <!-- LABELS -->
+        <p class="text-xs uppercase tracking-widest text-gray-500">Category</p>
+        <p class="text-xs uppercase tracking-widest text-gray-500">Timeline</p>
+        <p class="text-xs uppercase tracking-widest text-gray-500">Tools</p>
+
+        <!-- VALUES -->
+        <div></div>
+
+        <p class="text-gray-100 -mt-10">Motion</p>
+        <p class="text-gray-100 -mt-10">2024–2025</p>
+        <p class="text-gray-100 -mt-10">Blender - After Effects</p>
+      </div>
+    </div>
+
+    <!-- Intro text -->
+    <p class="font-light max-w-3xl mb-8 fade-seq" style="--d:.20s; font-size:15px; margin-top:100px; color: #a6a6a6;">
+      A selection of motion design renders produced throughout the creation of my personal project PSYCHE.
+    </p>
+
+    <div class="border-t border-[#3a3a3a] my-8 fade-seq" style="--d:.28s;"></div>
+
+    <!-- Image grid -->
+    <div 
+      class="grid grid-cols-2 gap-1 mb-12 fade-seq"
+      style="--d:.36s; --topH: 420px; --bottomH: 340px;"
+    >
+      <!-- Top wide -->
+      <div class="col-span-2 overflow-hidden" style="height: var(--topH);">
+        <img src="images/MotionProject1.jpg" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Bottom left -->
+      <div class="overflow-hidden" style="height: var(--bottomH);">
+        <img src="images/MotionProject2.jpg" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Bottom right -->
+      <div class="overflow-hidden" style="height: var(--bottomH);">
+        <img src="images/MotionProject3.jpg" class="w-full h-full object-cover">
+      </div>
+    </div>
+
+
+    <!-- Divider -->
+    <div class="border-t border-[#3a3a3a] my-8 fade-seq" style="--d:.76s;"></div>
+
+    <!-- Cinematic wideshot -->
+    <div class="relative w-full overflow-hidden mb-12 fade-seq" style="--d:.84s; padding-top: 50%;">
+      <img src="images/MotionProject4.jpg" class="absolute inset-0 w-full h-full object-cover">
+    </div>
+
+    <!-- Closing note -->
+    <p class="text-sm text-gray-500 mb-12 fade-seq" style="--d:.92s;">
+      Add case study text, process shots, or embedded media below.
+    </p>
+
+    <!-- Footer inside overlay -->
+    <div class="flex justify-between items-center pt-8 border-t border-[#3a3a3a] fade-seq" style="--d:1.0s;">
+      <p class="text-sm text-gray-500">© 2024 AstroEarthly</p>
+      <a href="#work" class="project-back text-sm">Close</a>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+<!-- HOMEPAGE WRAPPER -->
+<div id="homepage" class="fade-home">
+
+
+<!-- HEADER -->
+<header class="relative w-full h-64 lg:h-80 overflow-hidden">
+  <div id="parallax-header-bg"
+       class="absolute inset-0 bg-cover bg-center"
+       style="background-image:url('images/HeaderBG.jpg');">
+  </div>
+
+  <nav class="absolute top-0 left-0 w-full py-8 px-8 lg:px-16 z-10">
+    <div class="grid grid-cols-12 items-center">
+      <div class="col-span-4 lg:col-span-3">
+      
+      </div>
+      <div class="col-span-8 lg:col-span-9">
+        <ul class="flex justify-end gap-12 uppercase nav-small text-white">
+         <li><a href="#my-recent-work" class="transition text-white hover:text-gray-300">Work</a></li>
+<li><a href="#about-contact" class="transition text-white hover:text-gray-300">About</a></li>
+<li><a href="#contact-section" class="transition text-white hover:text-gray-300">Contact</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+
+<!-- INTRO / POSITIONING STATEMENT -->
+<section id="intro" class="px-8 lg:px-16 py-24 grid grid-cols-12 gap-8" 
+         style="background-color: #111211;">
+
+  <div class="col-span-12 lg:col-span-7 flex flex-col justify-center gap-4">
+    <h1 class="text-5xl lg:text-6xl font-bold leading-tight text-white">
+      VFX Artist & Editor<br>
+      Based in Italy
+    </h1>
+    <p class="text-sm text-gray-500 tracking-wide mt-2">
+      Blender | After Effects | DaVinci Resolve | GAEA | Photoshop (improving)
+    </p>
+    <p class="mt-6 text-gray-500 text-lg leading-relaxed max-w-xl">
+      Astroearthly is a 3D artist and editor from Italy, creating cinematic visuals and dynamic content driven by style, atmosphere, and modern digital storytelling..
+    </p>
+  </div>
+  <div class="col-span-12 lg:col-span-5 flex items-center justify-center">
+  <video 
+    src="images/LoopingPlanetFIX.mp4" 
+    autoplay 
+    muted 
+    loop 
+    playsinline 
+    class="w-full h-64 object-cover rounded-xl shadow-sm">
+  </video>
+</div>
+
+  </div>
+</section>
+
+
+
+
+<script>
+  const bg = document.getElementById('parallax-header-bg');
+  window.addEventListener('scroll', () => {
+    bg.style.transform = `translateY(${window.scrollY * 0.25}px)`;
+  });
+</script>
+
+
+<!-- HERO -->
+<section id="my-recent-work" class="grid grid-cols-12 gap-4 px-8 lg:px-16 py-16 lg:py-24 bg-[#111211]">
+
+  
+  <div class="col-span-12 lg:col-span-5 flex flex-col justify-center gap-8">
+   <h2 class="font-bold text-6xl lg:text-7xl leading-none tracking-tight text-white">
+  My Recent Work
+</h2>
+
+    <p class="text-xl font-light text-gray-400 max-w-lg">
+      A collection of my latest 3D experiments.
+    </p>
+  </div>
+
+  <div class="col-span-12 lg:col-span-7 grid grid-cols-2 gap-1 mt-8 lg:mt-0" style="--topH:310px; --bottomH:340px;">
+    
+    <!-- TOP IMAGE → OPENS ENVIRONMENT -->
+    <a href="#environment-section" class="overflow-hidden col-span-2 block" style="height:var(--topH)  ;">
+      <img 
+        src="images/Topgrid.jpg" 
+        class="w-full h-full object-cover transition-transform duration-[900ms] ease-out hover:scale-[1.03]"
+      >
+    </a>
+
+    <!-- Bottom Left → SPACE -->
+    <a href="#space-section" class="overflow-hidden" style="height:var(--bottomH);">
+      <img 
+        src="images/BottomLeft.jpg" 
+        class="w-full h-full object-cover transition-transform duration-[900ms] ease-out hover:scale-[1.03]"
+      >
+    </a>
+
+    <!-- Bottom Right → MOTION DESIGN -->
+    <a href="#motion-section" class="overflow-hidden" style="height:var(--bottomH);">
+      <img 
+        src="images/BottomRight.jpg" 
+        class="w-full h-full object-cover transition-transform duration-[900ms] ease-out hover:scale-[1.03]"
+      >
+    </a>
+
+  </div>
+</section>
+
+
+
+
+
+<!-- WORK -->
+<section id="work" class="px-8 lg:px-16 py-24 bg-[#161716]">
+  <div class="mb-16">
+    
+    <h2 class="text-4xl font-light text-white">More <span class=" text-white font-bold">Visual Experiments</span></h2>
+  </div>
+
+  <div class="grid grid-cols-12 gap-8">
+
+    <div class="col-span-12 lg:col-span-8 mb-8">
+      <img src="images/AlienPlant.jpg" class="w-full h-auto mb-4">
+      <div class="flex justify-between">
+        <div>
+          <h4 class="text-xl font-bold text-white">Extraterrestrial Plant Concept</h4>
+          <p class="text-sm uppercase tracking-wider text-white">Unknown Flora</p>
+        </div>
+        <span class="text-sm font-light text-gray-100">2024</span>
+      </div>
+    </div>
+
+    <div class="col-span-12 lg:col-span-4 mb-8">
+      <div class="bg-black p-12 text-white flex flex-col justify-center h-full">
+        <p class="text-sm uppercase tracking-widest mb-3 text-gray-300">
+          Vision
+        </p>
+        <p class="font-light text-lg text-gray-400  leading-relaxed">
+          Every environment begins as a quiet idea that evolves into a place worth exploring.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-span-12 mb-8">
+      <div class="relative w-full mb-4" style="--ratio:50%;padding-top:var(--ratio);overflow:hidden;">
+        <div class="absolute inset-0">
+          <iframe src="https://player.vimeo.com/video/1140005276?title=0&byline=0&portrait=0&controls=1"
+                  class="absolute top-1/2 left-1/2"
+                  style="width:100%;height:100%;transform:translate(-50%,-50%);"
+                  frameborder="0" allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <div>
+          <h4 class="text-xl font-bold text-white">Cinematic Showcase</h4>
+          <p class="text-sm uppercase tracking-wider text-white">Psyche Project</p>
+        </div>
+        <span class="text-sm font-light text-gray-100">2024</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MORE WORK ON SOCIALS -->
+<div class="text-center mt-15">
+  <p class="text-gray-400 text-sm uppercase tracking-widest mb-2">More Work</p>
+  <a href="https://www.instagram.com/astroearthly" target="_blank" 
+     class="inline-flex items-center gap-2 text-gray-300 hover:text-white transition">
+    <span class="text-lg font-light">See more reels on Instagram</span>
+    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M8 5h11v11h-2V8.4L6.4 19 5 17.6 15.6 7H8V5z"/>
+    </svg>
+  </a>
+</div>
+
+</section>
+
+
+
+
+
+<!-- ABOUT + CONTACT (SIDE BY SIDE) -->
+<section id="about-contact" class="px-8 lg:px-16 py-12 grid grid-cols-12 gap-16">
+
+  <!-- ABOUT — LEFT COLUMN -->
+  <div class="col-span-12 lg:col-span-6">
+    <h3 class="uppercase tracking-widest text-sm mb-2 font-medium text-white">More About</h3>
+
+    <h2 class="text-sm uppercase tracking-widest mb-4 mt-10 text-[25px] text-white">AstroEarthly</h2>
+
+    <p class="mb-6 font-light text-gray-500 text-[17px]">
+      AstroEarthly creates 3D animations, edits, and visual content focused on entertainment and modern digital storytelling—visuals designed to feel alive, stylish, and instantly engaging.
+    </p>
+
+    <p class="mb-6 font-light text-gray-500 text-[17px]">
+      With years of hands on experience in editing, animation, and social media, he crafts content that doesn’t just look polished, it keeps people watching. His approach blends creativity, flow, and design to make every piece feel premium and memorable.
+    </p>
+    
+
+  </div>
+
+
+  <!-- CONTACT — RIGHT COLUMN -->
+<div id="contact-section" class="col-span-12 lg:col-span-4 lg:col-start-9">
+
+    <h3 class="uppercase tracking-widest text-sm mb-2 font-medium text-white">Contact</h3>
+    <h2 class="text-4xl font-light mb-8 text-white">Get in <span class="font-bold text-white">Touch</span></h2>
+
+    <p class="font-light mb-8 text-white">Interested in working together? Let’s talk.</p>
+
+    <a href="mailto:astroearthly@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Astroearthly&body=Hello%2C%0A%0AI%20would%20like%20to%20discuss%20a%20potential%20project.%0A%0ABest%2C"
+       class="text-white inline-block border border-white px-6 py-3 text-sm uppercase tracking-widest hover:bg-[#161716] hover:text-[#d0d0d0] transition-all">
+       Email Me
+    </a>
+
+    <p class="mt-4 text-sm text-[#b0b0b0]">
+      Or email me directly:
+      <span class="text-[#ffffffd0] select-all">astroearthly@gmail.com</span>
+    </p>
+
+    <!-- FOLLOWER PROOF -->
+<p class="mt-4 text-sm text-[#b0b0b0]">
+  An audience of <span class="text-white font-medium">80,000+ followers</span> across social platforms.
+</p>
+
+</div>
+
+
+
+  </div>
+
+</section>
+
+
+
+
+
+
+
+<!-- FOOTER -->
+<footer class="border-t border-[#111211] px-8 lg:px-16 py-2 text-center">
+
+  <!-- LOGO -->
+  <div class="mb-6">
+    <img src="images/Component 1.svg"
+     alt="Logo"
+     class="mx-auto h-[80px] md:h-[100px] opacity-80">
+  </div>
+
+  <!-- SOCIAL ICONS -->
+  <div class="flex justify-center gap-8 mb-6">
+
+    <!-- Instagram -->
+<a href="https://www.instagram.com/astroearthly?igsh=MTJmbXJldGh0ZTZpbw==" 
+   target="_blank" 
+   class="opacity-60 hover:opacity-100 transition text-[#d0d0d0]">
+  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+    <rect x="3" y="3" width="18" height="18" rx="4"></rect>
+    <circle cx="12" cy="12" r="4"></circle>
+    <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"></circle>
+  </svg>
+</a>
+
+
+    <!-- TikTok -->
+<a href="https://www.tiktok.com/@astroearthly?_r=1&_t=ZN-91n3PuRNrMs" 
+   target="_blank" 
+   class="opacity-60 hover:opacity-100 transition text-[#d0d0d0] hover:text-[#ffffffb0]">
+  <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M16 8.5c1.4 1 3 1.5 5 1.5v3c-1.8 0-3.4-.4-5-1.2V16a6 6 0 1 1-6-6h1.5v3H10a3 3 0 1 0 3 3V3h3v5.5z"/>
+  </svg>
+</a>
+
+
+   <!-- Discord -->
+<a href="https://discord.com/users/640276568790269952" target="_blank" class="opacity-60 hover:opacity-100 transition">
+  <img src="images/discord-icon-svgrepo-com (2).svg" alt="Discord" class="w-6 h-6">
+</a>
+
+
+
+    </a>
+
+  </div>
+
+  <!-- COPYRIGHT -->
+  <p class="text-sm font-light text-white opacity-60">© 2025 AstroEarthly</p>
+
+</footer>
+
+
+
+</div> <!-- END HOMEPAGE -->
+
+
+<script>
+document.querySelectorAll('a[href="#top"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const homepage = document.getElementById('homepage');
+
+    // Remove animation class
+    homepage.classList.remove('fade-home');
+
+    // Force reflow (important)
+    void homepage.offsetWidth;
+
+    // Re-add animation class to restart fade
+    homepage.classList.add('fade-home');
+  });
+});
+</script>
+
+
+</body>
+</html>
