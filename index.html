@@ -5,105 +5,463 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
   <title>Portfolio</title>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
+/* -------------------------
+   SITE WIDE / RESPONSIVE FIXS
+   Replace the entire existing <style> block with this
+   ------------------------- */
 
-.fade-home {
-  opacity: 0;
-  animation: fadeHome 0.7s ease-out forwards;
+:root{
+  --bg:#111211;
 }
 
-@keyframes fadeHome {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* base animation */
+.fade-home{ opacity:0; animation:fadeHome .7s ease-out forwards; }
+@keyframes fadeHome{ from{opacity:0; transform:translateY(25px)} to{opacity:1; transform:translateY(0)} }
+
+/* project overlays */
+.project-section{ display:none; }
+.project-section:target{
+  display:block;
+  position:fixed;
+  inset:0;
+  background:var(--bg);
+  z-index:80;
+  overflow-y:auto;
+  padding:3rem 1.25rem;
 }
 
-
-
-  /* Sections hidden by default */
-  .project-section {
-    display: none;
-  }
-
-  /* Show overlay only when URL matches its ID */
-  .project-section:target {
-    display: block;
-    position: fixed;
-    inset: 0;
-    background: #111211;
-    z-index: 80;
-    overflow-y: auto;
-    padding: 3rem 2rem;
-  }
-
-  /* When overlay is open → hide homepage */
-  #environment-section:target ~ #homepage,
+/* when overlay open hide homepage */
+#environment-section:target ~ #homepage,
 #space-section:target ~ #homepage,
-#motion-section:target ~ #homepage {
-  display: none;
+#motion-section:target ~ #homepage { display:none; }
+
+/* text helpers */
+.project-back{ color:#666; text-decoration:none; display:inline-flex; align-items:center; gap:.4rem; }
+.project-back:hover{ color:#000; }
+
+/* staggered fades from your original file */
+.fade-seq{ opacity:0; animation:fadeSeq .65s ease-out forwards; animation-delay:var(--d,0s) }
+@keyframes fadeSeq{ from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:translateY(0)} }
+
+/* small nav text helper */
+.nav-small{ font-size:12px; letter-spacing:.15em; font-family:'Inter',sans-serif; }
+
+/* GLOBAL: font, box sizing */
+*{ box-sizing:border-box; font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+html{ scroll-behavior:smooth; }
+
+/* Prevent horizontal overflow */
+html,body{ overflow-x:hidden; width:100%; background:var(--bg); color:#fff; }
+
+/* Ensure media fit and don't distort */
+img,video,iframe{ max-width:100%; height:auto; display:block; object-fit:cover; }
+
+/* Fix text overflow */
+p,h1,h2,h3,h4,h5,h6{ word-wrap:break-word; overflow-wrap:break-word; }
+
+/* Grid helper for small screens */
+.grid > *{ min-width:0; }
+
+/* Mobile menu helpers (hidden by default, pointer-events none when hidden) */
+#nav-mobile.hidden{ opacity:0; pointer-events:none; }
+#nav-mobile.show{ opacity:1; pointer-events:auto; }
+
+/* Prevent background scroll when menu open */
+body.menu-open { overflow: hidden; }
+
+/* Specific responsive typographic tuning for problem sections */
+
+/* INTRO title */
+#intro h1{
+  /* desktop-ish default set via tailwind classes, but include safe fallback */
+  font-weight:700;
+  margin:0;
+  line-height:1.02;
+}
+
+/* HERO title responsive fallback (in case tailwind missing) */
+#my-recent-work h2{
+  margin:0;
+  font-weight:700;
+  line-height:1;
+}
+
+/* WORK section meta - ensure row wraps nicely */
+.work-meta{ display:flex; gap:1rem; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
+.work-meta .title{ min-width:0; }
+
+/* extra safety for tiny screens */
+@media (max-width:420px){
+  body{ -webkit-text-size-adjust:100%; }
+  section{ padding-left:1rem; padding-right:1rem; }
+  #intro h1{ font-size:1.6rem !important; } /* ~ 25.6px */
+  #my-recent-work h2{ font-size:1.4rem !important; } /* ~22.4px */
+}
+
+/* tablet tweaks */
+@media (min-width:421px) and (max-width:1024px){
+  #intro h1{ font-size:2.25rem; } /* ~36px */
+  #my-recent-work h2{ font-size:2rem; } /* ~32px */
+}
+
+/* desktop */
+@media (min-width:1025px){
+  #intro h1{ font-size:3rem; } /* ~48px */
+  #my-recent-work h2{ font-size:3.5rem; } /* ~56px */
+}
+
+/* small visual niceties */
+.rounded-md{ border-radius:.5rem; }
+.rounded-lg{ border-radius:.75rem; }
+
+ /* Fix horizontal overflow globally */
+  html, body {
+    overflow-x: hidden !important;
+  }
+
+  /* Ensure grid children don't enforce minimum width */
+  .no-overflow > * {
+    min-width: 0 !important;
+  }
+
+  /* Fix iOS Safari rounding bug */
+  img, video, iframe {
+    max-width: 100% !important;
+  }
+
+  /* MOBILE: tighten #about-contact text without affecting desktop */
+@media (max-width: 420px) {
+  #about-contact h2 {
+    font-size: 20px !important;   /* slightly smaller */
+    line-height: 1.2 !important;  /* tighter */
+  }
+  #about-contact h3 {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+  }
+  #about-contact p {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  #about-contact .grid {
+    gap: 1rem !important;         /* reduce column spacing slightly */
+  }
+}
+
+/* TIGHTEN #about-contact text for iPhone Pro Max (430px width) */
+@media (min-width: 421px) and (max-width: 440px) {
+  #about-contact h2 {
+    font-size: 22px !important;   /* slightly bigger than iPhone SE */
+    line-height: 1.25 !important; 
+  }
+  #about-contact h3 {
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+  }
+  #about-contact p {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.9rem !important;
+  }
+  #about-contact .grid {
+    gap: 1.2rem !important;       /* small increase in spacing */
+  }
+}
+
+/* WORK SECTION: SMALL PHONE TWEAKS */
+
+/* iPhone SE (375px) & similar small phones */
+@media (max-width: 375px) {
+  #work h2 {
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+  }
+  #work .work-meta h4 {
+    font-size: 16px !important;
+    line-height: 1.25 !important;
+  }
+  #work .work-meta p,
+  #work .bg-black p {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+  }
+  #work .bg-black {
+    padding: 1.5rem !important;
+  }
+  #work .grid {
+    gap: 1rem !important;
+  }
+}
+
+/* Samsung Galaxy S8 (360px width) */
+@media (max-width: 360px) {
+  #work h2 {
+    font-size: 19px !important;
+    line-height: 1.2 !important;
+  }
+  #work .work-meta h4 {
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+  }
+  #work .work-meta p,
+  #work .bg-black p {
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+  }
+  #work .bg-black {
+    padding: 1.25rem !important;
+  }
+  #work .grid {
+    gap: 0.9rem !important;
+  }
+}
+
+/* Galaxy Z Fold 5 (small unfolded width ~344px) */
+@media (max-width: 345px) {
+  #work h2 {
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+  }
+  #work .work-meta h4 {
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+  }
+  #work .work-meta p,
+  #work .bg-black p {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+  }
+  #work .bg-black {
+    padding: 1rem !important;
+  }
+  #work .grid {
+    gap: 0.8rem !important;
+  }
+}
+
+/* CONTACT SECTION CENTERING FOR SMALL PHONES */
+@media (max-width: 430px) {
+  #contact-section {
+    /* Make it span full width and ignore starting column */
+    grid-column: 1 / -1 !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  #contact-section h2 {
+    font-size: 1.8rem !important; /* slightly smaller on small screens */
+    line-height: 1.2 !important;
+  }
+
+  #contact-section p,
+  #contact-section a {
+    font-size: 0.875rem !important; /* 14px */
+    line-height: 1.3 !important;
+  }
+
+  #contact-section a {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    display: inline-block;
+  }
+}
+
+/* WORK SECTION FIX FOR SMALL PHONES (≤430px) */
+@media (max-width: 430px) {
+  #work {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  #work .grid {
+    gap: 1rem !important;
+  }
+
+  #work .grid > * {
+    min-width: 0 !important;
+  }
+
+  #work img,
+  #work iframe,
+  #work .bg-black {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  #work h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+  }
+
+  #work .work-meta h4 {
+    font-size: 1rem !important;
+  }
+
+  #work .work-meta p,
+  #work .bg-black p {
+    font-size: 0.75rem !important;
+  }
+
+  #work .bg-black {
+    padding: 1rem !important;
+  }
+}
+
+/* PROJECT OVERLAY FIXES FOR SMALL SCREENS (≤430px) */
+@media (max-width: 430px) {
+
+  /* General overlay adjustments */
+  .project-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .project-section .max-w-6xl {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Grid adjustments to prevent overflow */
+  .project-section .grid {
+    gap: 0.75rem !important; /* smaller gaps on tiny screens */
+  }
+
+  .project-section .grid > * {
+    min-width: 0 !important; /* allow columns to shrink fully */
+  }
+
+  /* Text scaling */
+  .project-section h1 {
+    font-size: 2rem !important; /* shrink main titles */
+    line-height: 1.2 !important;
+  }
+
+  .project-section h3 {
+    font-size: 1.2rem !important;
+  }
+
+  .project-section p,
+  .project-section .work-meta p,
+  .project-section .fade-seq p {
+    font-size: 0.75rem !important;
+  }
+
+  /* Meta row adjustments */
+  .project-section .grid-cols-4 {
+    grid-template-columns: 1fr 1fr !important; /* stack labels/values */
+  }
+
+  .project-section .grid-cols-4 > div,
+  .project-section .grid-cols-4 > p {
+    min-width: 0 !important;
+  }
+
+  /* Image grids */
+  .project-section img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important; /* maintain aspect ratio */
+  }
+
+  .project-section .relative {
+    padding-top: 50% !important; /* preserve wideshot ratio */
+  }
+
+  /* Back button */
+  .project-section a.inline-flex {
+    font-size: 0.75rem !important;
+  }
+
+  /* Reduce spacing for tiny screens */
+  .project-section .mb-8,
+  .project-section .mb-10,
+  .project-section .mt-24,
+  .project-section .mb-12 {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Footer inside overlay */
+  .project-section .flex.justify-between {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+}
+
+/* Additional fixes for project overlays (≤430px) */
+@media (max-width: 430px) {
+
+  /* Labels / Values: horizontal like desktop, smaller, thinner, tighter spacing */
+  .project-section .grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr) !important; /* keep 4 columns */
+    gap: 0.15rem !important; /* tighter gap between columns */
+  }
+
+  .project-section .grid-cols-4 > p,
+  .project-section .grid-cols-4 > div {
+    margin-top: 0 !important; /* remove extra spacing */
+    font-size: 0.55rem !important; /* small text */
+    line-height: 1.1 !important; /* tighter line height */
+    font-weight: 300 !important; /* thinner font */
+    word-break: break-word; /* prevent overflow */
+  }
+
+  /* Image grids: stack vertically and maintain aspect ratio */
+  .project-section .grid.grid-cols-2 {
+    grid-template-columns: 1fr !important; /* stack all images vertically */
+    gap: 0.5rem !important;
+  }
+
+  .project-section .grid.grid-cols-2 > div {
+    height: auto !important; /* let images scale naturally */
+  }
+
+  .project-section .grid.grid-cols-2 img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Cinematic wideshot: reduce height for tiny screens */
+  .project-section .relative[style*="padding-top: 50%"] {
+    padding-top: 35% !important;
+  }
+}
+
+/* show/hide helper for the transparent back-to-top button */
+#scrollTopBtn.show {
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 
-  /* Back link */
-  .project-back {
-    color: #666;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: .4rem;
-  }
-  .project-back:hover { color: #000; }
-
-  /* Carrd-style stagger fade system */
-  .fade-seq {
-    opacity: 0;
-    animation: fadeSeq 0.65s ease-out forwards;
-    animation-delay: var(--d, 0s);
-  }
-
-  @keyframes fadeSeq {
-    from {
-      opacity: 0;
-      transform: translateY(18px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .nav-small {
-    font-size: 12px;   /* ← change this anytime */
-    letter-spacing: 0.15em; /* optional: feel free to adjust */
-    font-family: 'Inter', sans-serif; /* ← change to any font */
-  }
-
-  * {
-    font-family: 'Inter', sans-serif;
-  }
-
-
-  html {
-  scroll-behavior: smooth;
-}
 </style>
+
 
 
 </head>
 
 
 <body style="background-color: #111211;" class="text-black font-sans"> 
+<button id="scrollTopBtn"
+        aria-label="Back to top"
+        class="fixed bottom-6 right-6 w-12 h-12 rounded-full flex items-center justify-center
+               bg-white/10 backdrop-blur-md border border-white/20 text-white
+               hover:bg-white/20 transition-all duration-300 cursor-pointer
+               opacity-0 pointer-events-none z-[9999]">
+  ↑
+</button>
+
 
 
 <a id="top"></a>
@@ -457,60 +815,86 @@
 
 
 <!-- HEADER -->
-<header class="relative w-full h-64 lg:h-80 overflow-hidden">
+<header id="header-top" class="relative w-full h-64 lg:h-80 overflow-hidden">
   <div id="parallax-header-bg"
        class="absolute inset-0 bg-cover bg-center"
        style="background-image:url('images/HeaderBG.jpg');">
   </div>
 
-  <nav class="absolute top-0 left-0 w-full py-8 px-8 lg:px-16 z-10">
-    <div class="grid grid-cols-12 items-center">
-      <div class="col-span-4 lg:col-span-3">
-      
-      </div>
-      <div class="col-span-8 lg:col-span-9">
-        <ul class="flex justify-end gap-12 uppercase nav-small text-white">
-         <li><a href="#my-recent-work" class="transition text-white hover:text-gray-300">Work</a></li>
-<li><a href="#about-contact" class="transition text-white hover:text-gray-300">About</a></li>
-<li><a href="#contact-section" class="transition text-white hover:text-gray-300">Contact</a></li>
+  <!-- NAVBAR: Replace your existing <nav> block with this exact code -->
+<nav class="fixed top-0 left-0 w-full py-4 px-6 lg:px-16 z-50 bg-transparent">
+  <div class="relative flex justify-end items-center">
 
-        </ul>
-      </div>
-    </div>
-  </nav>
+    <!-- Hamburger (right) -->
+    <button id="nav-toggle" aria-label="Open menu"
+            class="lg:hidden text-white focus:outline-none relative z-60">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <!-- Desktop menu -->
+    <ul id="nav-menu" class="hidden lg:flex gap-12 uppercase nav-small text-white items-center">
+      <li><a href="#my-recent-work" class="transition hover:text-gray-300">Work</a></li>
+      <li><a href="#about-contact" class="transition hover:text-gray-300">About</a></li>
+      <li><a href="#contact-section" class="transition hover:text-gray-300">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- MOBILE MENU (hidden by default). Replace existing #nav-mobile with this -->
+  <div id="nav-mobile" class="hidden fixed inset-0 z-50 flex flex-col items-center pt-24 bg-black/80 backdrop-blur-xl opacity-0 transition-opacity duration-300">
+    <!-- close button in same corner visually -->
+    <button id="nav-close" aria-label="Close menu" class="absolute top-6 right-6 text-white focus:outline-none">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Centered links near top of menu -->
+    <nav class="w-full max-w-xl text-center">
+      <ul class="flex flex-col gap-6 items-center">
+        <li><a href="#my-recent-work" class=" text-white sm:text-3xl hover:text-gray-300">Work</a></li>
+        <li><a href="#about-contact" class="text-white sm:text-3xl hover:text-gray-300">About</a></li>
+        <li><a href="#contact-section" class="text-white sm:text-3xl hover:text-gray-300">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</nav>
+
+
+
 </header>
 
 
+<!-- INTRO / POSITIONING STATEMENT (replace old intro) -->
+<section id="intro" class="px-6 sm:px-8 lg:px-16 py-16 bg-[#111211]">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <!-- TEXT BLOCK -->
+    <div class="flex flex-col justify-center gap-4">
+      <h1 id="intro-title" class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-[56px] font-bold leading-tight text-white">
+        VFX Artist &amp; Editor<br>Based in Italy
+      </h1>
 
-<!-- INTRO / POSITIONING STATEMENT -->
-<section id="intro" class="px-8 lg:px-16 py-24 grid grid-cols-12 gap-8" 
-         style="background-color: #111211;">
+      <p class="text-xs sm:text-sm lg:text-base text-gray-500 tracking-wide mt-2">
+        Blender | After Effects | DaVinci Resolve | GAEA | Photoshop (improving)
+      </p>
 
-  <div class="col-span-12 lg:col-span-7 flex flex-col justify-center gap-4">
-    <h1 class="text-5xl lg:text-6xl font-bold leading-tight text-white">
-      VFX Artist & Editor<br>
-      Based in Italy
-    </h1>
-    <p class="text-sm text-gray-500 tracking-wide mt-2">
-      Blender | After Effects | DaVinci Resolve | GAEA | Photoshop (improving)
-    </p>
-    <p class="mt-6 text-gray-500 text-lg leading-relaxed max-w-xl">
-      Astroearthly is a 3D artist and editor from Italy, creating cinematic visuals and dynamic content driven by style, atmosphere, and modern digital storytelling..
-    </p>
-  </div>
-  <div class="col-span-12 lg:col-span-5 flex items-center justify-center">
-  <video 
-    src="images/LoopingPlanetFIX.mp4" 
-    autoplay 
-    muted 
-    loop 
-    playsinline 
-    class="w-full h-64 object-cover rounded-xl shadow-sm">
-  </video>
-</div>
+      <p class="mt-4 text-gray-500 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl">
+        Astroearthly is a 3D artist and editor from Italy, creating cinematic visuals and dynamic content driven by style, atmosphere, and modern digital storytelling.
+      </p>
+    </div>
 
+    <!-- VIDEO BLOCK -->
+    <div class="flex justify-center md:justify-end">
+      <video src="images/LoopingPlanetFIX.mp4" autoplay muted loop playsinline
+             class="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-xl shadow-sm object-cover">
+      </video>
+    </div>
   </div>
 </section>
+
+
 
 
 
@@ -523,46 +907,33 @@
 </script>
 
 
-<!-- HERO -->
-<section id="my-recent-work" class="grid grid-cols-12 gap-4 px-8 lg:px-16 py-16 lg:py-24 bg-[#111211]">
+<!-- HERO: My Recent Work (replace existing hero section) -->
+<section id="my-recent-work" class="grid grid-cols-12 gap-6 px-6 sm:px-8 lg:px-16 py-12 lg:py-20 bg-[#111211] no-overflow">
+  <!-- TEXT BLOCK -->
+  <div class="col-span-12 lg:col-span-5 flex flex-col justify-center gap-4 text-center lg:text-left">
+    <h2 id="hero-title" class="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight tracking-tight text-white">
+      My Recent Work
+    </h2>
 
-  
-  <div class="col-span-12 lg:col-span-5 flex flex-col justify-center gap-8">
-   <h2 class="font-bold text-6xl lg:text-7xl leading-none tracking-tight text-white">
-  My Recent Work
-</h2>
-
-    <p class="text-xl font-light text-gray-400 max-w-lg">
+    <p class="text-sm sm:text-base md:text-lg font-light text-gray-400 max-w-lg mx-auto lg:mx-0">
       A collection of my latest 3D experiments.
     </p>
   </div>
 
-  <div class="col-span-12 lg:col-span-7 grid grid-cols-2 gap-1 mt-8 lg:mt-0" style="--topH:310px; --bottomH:340px;">
-    
-    <!-- TOP IMAGE → OPENS ENVIRONMENT -->
-    <a href="#environment-section" class="overflow-hidden col-span-2 block" style="height:var(--topH)  ;">
-      <img 
-        src="images/Topgrid.jpg" 
-        class="w-full h-full object-cover transition-transform duration-[900ms] ease-out hover:scale-[1.03]"
-      >
+  <!-- IMAGE GRID -->
+  <div class="col-span-12 lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 lg:mt-0 place-items-center">
+    <a href="#environment-section" class="col-span-1 sm:col-span-2 w-full block">
+      <img src="images/Topgrid.jpg" alt="Top project"
+           class="w-full h-56 sm:h-72 md:h-80 lg:h-96 object-cover rounded-md transition-transform duration-700 ease-out hover:scale-[1.03]">
     </a>
 
-    <!-- Bottom Left → SPACE -->
-    <a href="#space-section" class="overflow-hidden" style="height:var(--bottomH);">
-      <img 
-        src="images/BottomLeft.jpg" 
-        class="w-full h-full object-cover transition-transform duration-[900ms] ease-out hover:scale-[1.03]"
-      >
+    <a href="#space-section" class="w-full">
+      <img src="images/BottomLeft.jpg" alt="Space" class="w-full h-44 sm:h-56 md:h-64 object-cover rounded-md transition-transform duration-700 hover:scale-[1.03]">
     </a>
 
-    <!-- Bottom Right → MOTION DESIGN -->
-    <a href="#motion-section" class="overflow-hidden" style="height:var(--bottomH);">
-      <img 
-        src="images/BottomRight.jpg" 
-        class="w-full h-full object-cover transition-transform duration-[900ms] ease-out hover:scale-[1.03]"
-      >
+    <a href="#motion-section" class="w-full">
+      <img src="images/BottomRight.jpg" alt="Motion" class="w-full h-44 sm:h-56 md:h-64 object-cover rounded-md transition-transform duration-700 hover:scale-[1.03]">
     </a>
-
   </div>
 </section>
 
@@ -570,127 +941,136 @@
 
 
 
-<!-- WORK -->
-<section id="work" class="px-8 lg:px-16 py-24 bg-[#161716]">
-  <div class="mb-16">
-    
-    <h2 class="text-4xl font-light text-white">More <span class=" text-white font-bold">Visual Experiments</span></h2>
+
+
+<!-- WORK (replace previous work section) -->
+<section id="work" class="px-6 sm:px-8 lg:px-16 py-20 bg-[#161716]">
+  <div class="mb-8 text-center lg:text-left">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-light text-white">
+      More <span class="text-white font-bold">Visual Experiments</span>
+    </h2>
   </div>
 
-  <div class="grid grid-cols-12 gap-8">
+  <div class="grid grid-cols-12 gap-8 no-overflow">
+    <!-- LEFT LARGE IMAGE -->
+    <div class="col-span-12 lg:col-span-8">
+      <div class="w-full overflow-hidden rounded-lg bg-[#0f0f0f]">
+        <img src="images/AlienPlant.jpg" alt="Alien Plant" class="w-full h-60 sm:h-80 md:h-96 lg:h-[520px] object-cover">
+      </div>
 
-    <div class="col-span-12 lg:col-span-8 mb-8">
-      <img src="images/AlienPlant.jpg" class="w-full h-auto mb-4">
-      <div class="flex justify-between">
-        <div>
-          <h4 class="text-xl font-bold text-white">Extraterrestrial Plant Concept</h4>
-          <p class="text-sm uppercase tracking-wider text-white">Unknown Flora</p>
+      <div class="mt-4 work-meta no-overflow">
+        <div class="title min-w-0">
+          <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-white">Extraterrestrial Plant Concept</h4>
+          <p class="text-xs sm:text-sm uppercase tracking-wider text-gray-300 mt-1">Unknown Flora</p>
         </div>
-        <span class="text-sm font-light text-gray-100">2024</span>
+        <div class="meta-right">
+          <span class="text-xs sm:text-sm font-light text-gray-100">2024</span>
+        </div>
       </div>
     </div>
 
-    <div class="col-span-12 lg:col-span-4 mb-8">
-      <div class="bg-black p-12 text-white flex flex-col justify-center h-full">
-        <p class="text-sm uppercase tracking-widest mb-3 text-gray-300">
-          Vision
-        </p>
-        <p class="font-light text-lg text-gray-400  leading-relaxed">
+    <!-- RIGHT TEXT BLOCK -->
+    <div class="col-span-12 lg:col-span-4">
+      <div class="bg-black p-6 sm:p-8 lg:p-12 text-white flex flex-col justify-center rounded-lg h-full">
+        <p class="text-xs sm:text-sm uppercase tracking-widest mb-3 text-gray-300">Vision</p>
+        <p class="font-light text-sm sm:text-base text-gray-400 leading-relaxed">
           Every environment begins as a quiet idea that evolves into a place worth exploring.
         </p>
       </div>
     </div>
 
-    <div class="col-span-12 mb-8">
-      <div class="relative w-full mb-4" style="--ratio:50%;padding-top:var(--ratio);overflow:hidden;">
-        <div class="absolute inset-0">
-          <iframe src="https://player.vimeo.com/video/1140005276?title=0&byline=0&portrait=0&controls=1"
-                  class="absolute top-1/2 left-1/2"
-                  style="width:100%;height:100%;transform:translate(-50%,-50%);"
-                  frameborder="0" allowfullscreen>
-          </iframe>
-        </div>
+    <!-- VIDEO AREA -->
+    <div class="col-span-12">
+      <div class="relative w-full mb-4 aspect-video rounded-lg overflow-hidden">
+        <iframe src="https://player.vimeo.com/video/1140005276?title=0&byline=0&portrait=0&controls=1"
+          class="absolute inset-0 w-full h-full" frameborder="0" allowfullscreen title="Cinematic Showcase"></iframe>
       </div>
 
-      <div class="flex justify-between">
-        <div>
-          <h4 class="text-xl font-bold text-white">Cinematic Showcase</h4>
-          <p class="text-sm uppercase tracking-wider text-white">Psyche Project</p>
+      <div class="mt-4 work-meta no-overflow">
+        <div class="min-w-0">
+          <h4 class="text-lg sm:text-xl font-bold text-white">Cinematic Showcase</h4>
+          <p class="text-xs sm:text-sm uppercase tracking-wider text-gray-300 mt-1">Psyche Project</p>
         </div>
-        <span class="text-sm font-light text-gray-100">2024</span>
+        <div class="flex-shrink-0">
+          <span class="text-xs sm:text-sm font-light text-gray-100">2024</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- MORE WORK ON SOCIALS -->
-<div class="text-center mt-15">
-  <p class="text-gray-400 text-sm uppercase tracking-widest mb-2">More Work</p>
-  <a href="https://www.instagram.com/astroearthly" target="_blank" 
-     class="inline-flex items-center gap-2 text-gray-300 hover:text-white transition">
-    <span class="text-lg font-light">See more reels on Instagram</span>
-    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M8 5h11v11h-2V8.4L6.4 19 5 17.6 15.6 7H8V5z"/>
-    </svg>
-  </a>
-</div>
-
+  <div class="text-center mt-12">
+    <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-widest mb-2">More Work</p>
+    <a href="https://www.instagram.com/astroearthly" target="_blank" class="inline-flex items-center gap-2 text-gray-300 hover:text-white transition">
+      <span class="text-base sm:text-lg font-light">See more reels on Instagram</span>
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5h11v11h-2V8.4L6.4 19 5 17.6 15.6 7H8V5z"/>
+      </svg>
+    </a>
+  </div>
 </section>
+
 
 
 
 
 
 <!-- ABOUT + CONTACT (SIDE BY SIDE) -->
-<section id="about-contact" class="px-8 lg:px-16 py-12 grid grid-cols-12 gap-16">
+<section id="about-contact" class="px-8 lg:px-16 py-12">
 
-  <!-- ABOUT — LEFT COLUMN -->
-  <div class="col-span-12 lg:col-span-6">
-    <h3 class="uppercase tracking-widest text-sm mb-2 font-medium text-white">More About</h3>
+  <!-- WRAPPER THAT FIXES OVERFLOW -->
+  <div class="grid grid-cols-12 gap-10 max-w-full overflow-x-hidden">
 
-    <h2 class="text-sm uppercase tracking-widest mb-4 mt-10 text-[25px] text-white">AstroEarthly</h2>
+    <!-- ABOUT — LEFT COLUMN -->
+    <div class="col-span-12 lg:col-span-6 min-w-0 break-words">
 
-    <p class="mb-6 font-light text-gray-500 text-[17px]">
-      AstroEarthly creates 3D animations, edits, and visual content focused on entertainment and modern digital storytelling—visuals designed to feel alive, stylish, and instantly engaging.
-    </p>
+      <h3 class="uppercase tracking-widest text-sm mb-2 font-medium text-white">More About</h3>
 
-    <p class="mb-6 font-light text-gray-500 text-[17px]">
-      With years of hands on experience in editing, animation, and social media, he crafts content that doesn’t just look polished, it keeps people watching. His approach blends creativity, flow, and design to make every piece feel premium and memorable.
-    </p>
-    
+      <h2 class="text-sm uppercase tracking-widest mb-4 mt-10 text-[25px] text-white">AstroEarthly</h2>
+
+      <p class="mb-6 font-light text-gray-500 text-[17px] break-words">
+        AstroEarthly creates 3D animations, edits, and visual content focused on entertainment and modern digital storytelling—visuals designed to feel alive, stylish, and instantly engaging.
+      </p>
+
+      <p class="mb-6 font-light text-gray-500 text-[17px] break-words">
+        With years of hands on experience in editing, animation, and social media, he crafts content that doesn’t just look polished, it keeps people watching. His approach blends creativity, flow, and design to make every piece feel premium and memorable.
+      </p>
+
+    </div>
+
+
+    <!-- CONTACT — RIGHT COLUMN -->
+    <div id="contact-section"
+         class="col-span-12 lg:col-span-4 lg:col-start-9 min-w-0 break-words">
+
+      <h3 class="uppercase tracking-widest text-sm mb-2 font-medium text-white">Contact</h3>
+      <h2 class="text-4xl font-light mb-8 text-white">
+        Get in <span class="font-bold text-white">Touch</span>
+      </h2>
+
+      <p class="font-light mb-8 text-white break-words">
+        Interested in working together? Let’s talk.
+      </p>
+
+      <a href="mailto:astroearthly@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Astroearthly&body=Hello%2C%0A%0AI%20would%20like%20to%20discuss%20a%20potential%20project.%0A%0ABest%2C"
+         class="text-white inline-block border border-white px-6 py-3 text-sm uppercase tracking-widest hover:bg-[#161716] hover:text-[#d0d0d0] transition-all">
+         Email Me
+      </a>
+
+      <p class="mt-4 text-sm text-[#b0b0b0] break-words">
+        Or email me directly:
+        <span class="text-[#ffffffd0] select-all">astroearthly@gmail.com</span>
+      </p>
+
+      <p class="mt-4 text-sm text-[#b0b0b0] break-words">
+        An audience of <span class="text-white font-medium">80,000+ followers</span> across social platforms.
+      </p>
+
+    </div>
 
   </div>
-
-
-  <!-- CONTACT — RIGHT COLUMN -->
-<div id="contact-section" class="col-span-12 lg:col-span-4 lg:col-start-9">
-
-    <h3 class="uppercase tracking-widest text-sm mb-2 font-medium text-white">Contact</h3>
-    <h2 class="text-4xl font-light mb-8 text-white">Get in <span class="font-bold text-white">Touch</span></h2>
-
-    <p class="font-light mb-8 text-white">Interested in working together? Let’s talk.</p>
-
-    <a href="mailto:astroearthly@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Astroearthly&body=Hello%2C%0A%0AI%20would%20like%20to%20discuss%20a%20potential%20project.%0A%0ABest%2C"
-       class="text-white inline-block border border-white px-6 py-3 text-sm uppercase tracking-widest hover:bg-[#161716] hover:text-[#d0d0d0] transition-all">
-       Email Me
-    </a>
-
-    <p class="mt-4 text-sm text-[#b0b0b0]">
-      Or email me directly:
-      <span class="text-[#ffffffd0] select-all">astroearthly@gmail.com</span>
-    </p>
-
-    <!-- FOLLOWER PROOF -->
-<p class="mt-4 text-sm text-[#b0b0b0]">
-  An audience of <span class="text-white font-medium">80,000+ followers</span> across social platforms.
-</p>
-
-</div>
-
-
-
-  </div>
-
 </section>
+
+
 
 
 
@@ -699,7 +1079,8 @@
 
 
 <!-- FOOTER -->
-<footer class="border-t border-[#111211] px-8 lg:px-16 py-2 text-center">
+<footer class="border-t border-[#111211] px-8 lg:px-16 py-2 text-center no-overflow">
+
 
   <!-- LOGO -->
   <div class="mb-6">
@@ -770,6 +1151,114 @@ document.querySelectorAll('a[href="#top"]').forEach(btn => {
   });
 });
 </script>
+
+
+ 
+
+<script>
+  // NAV TOGGLE: replace existing nav script with this
+  const toggle = document.getElementById('nav-toggle');
+  const closeBtn = document.getElementById('nav-close');
+  const mobileMenu = document.getElementById('nav-mobile');
+
+  function openMenu(){
+    // ensure hidden class removed and add show class
+    mobileMenu.classList.remove('hidden');
+    mobileMenu.classList.add('show');
+    // add body lock
+    document.body.classList.add('menu-open');
+    // ensure transition runs
+    requestAnimationFrame(()=> mobileMenu.classList.add('show'));
+    // for accessibility focus the first link
+    const firstLink = mobileMenu.querySelector('a');
+    if(firstLink) firstLink.focus();
+  }
+
+  function closeMenu(){
+    // remove show, wait for transitionend then hide fully
+    mobileMenu.classList.remove('show');
+    // remove body lock
+    document.body.classList.remove('menu-open');
+    const onEnd = () => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.removeEventListener('transitionend', onEnd);
+    };
+    mobileMenu.addEventListener('transitionend', onEnd);
+  }
+
+  // open/close handlers
+  toggle.addEventListener('click', (e)=> { e.stopPropagation(); openMenu(); });
+  closeBtn.addEventListener('click', (e)=> { e.stopPropagation(); closeMenu(); });
+
+  // close on link click
+  document.querySelectorAll('#nav-mobile a').forEach(link => {
+    link.addEventListener('click', () => {
+      closeMenu();
+      // allow the anchor to navigate after closing
+    });
+  });
+
+  // close when clicking outside the menu
+  document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && !toggle.contains(e.target) && mobileMenu.classList.contains('show')) {
+      closeMenu();
+    }
+  });
+
+  // handle Escape key to close
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && mobileMenu.classList.contains('show')) closeMenu();
+  });
+
+  
+</script>
+
+<script>
+(function () {
+  // Wait for the DOM so the button always exists
+  function initScrollBtn() {
+    const btn = document.getElementById('scrollTopBtn');
+    if (!btn) {
+      console.warn('scrollTopBtn not found in DOM.');
+      return;
+    }
+
+    // target - element to scroll to. Change to any ID you prefer.
+    const targetId = 'header-top';
+    const targetEl = document.getElementById(targetId);
+    if (!targetEl) {
+      console.warn(`Scroll target #${targetId} not found. Falling back to top.`);
+    }
+
+    // show/hide button on scroll
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) btn.classList.add('show');
+      else btn.classList.remove('show');
+    }, { passive: true });
+
+    // click -> smooth scroll to target (intro) or top
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollBtn);
+  } else {
+    initScrollBtn();
+  }
+})();
+</script>
+
+
+
+
+
 
 
 </body>
